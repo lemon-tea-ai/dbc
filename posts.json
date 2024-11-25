@@ -1,0 +1,16 @@
+{
+    "posts": [
+        {
+            "title": "My First Learning Entry",
+            "date": "April 1, 2024",
+            "category": "Learning",
+            "content": "Today I learned about HTML structure..."
+        },
+        {
+            "title": "Understanding CSS Grid",
+            "date": "April 2, 2024",
+            "category": "CSS",
+            "content": "CSS Grid makes layout much easier..."
+        }
+    ]
+}
