@@ -1,16 +1,16 @@
 {
     "posts": [
         {
-            "title": "My First Learning Entry",
-            "date": "April 1, 2024",
-            "category": "Learning",
-            "content": "Today I learned about HTML structure..."
+            "title": "VAE Architecture Implementation Summary",
+            "date": "Dec 11, 2024",
+            "category": "Deep Learning",
+            "content": "# VAE Architecture Implementation Summary\n\n## Key Differences between VAE and Regular Autoencoder\n\n1. **Encoder Output**: \n   - Regular AE: Outputs direct encoding\n   - VAE: Outputs parameters (mean and logvar) for a probability distribution\n   - Final layer size is doubled to accommodate both mean and logvar\n\n2. **Latent Space**:\n   - Regular AE: Deterministic encoding\n   - VAE: Probabilistic encoding (samples from distribution defined by mean/logvar)\n   - `z_size = hidden_dims[-1] // 2` (half of final hidden layer)\n\n## Architecture Dimensions Example\n\n```python\n# Given:\ninput_dim = 784  # (28x28 MNIST image)\nhidden_dims = [128, 64, 36, 18]\nz_size = 18 // 2 = 9  # (latent dimension)\n\n# Flow:\nEncoder: 784 → 128 → 64 → 36 → 18 (mean/logvar)\nSampling: 18 → 9 (latent space)\nDecoder: 9 → 36 → 64 → 128 → 784\n```\n\n## Important Code Components\n\n```python\n# Encoder dimensions\nencoder_dims = [input_dim] + hidden_dims\n# [784, 128, 64, 36, 18]\n\n# Decoder dimensions\ndecoder_dims = [self.z_size] + hidden_dims[:-1][::-1] + [decode_dim]\n# [9, 36, 64, 128, 784]\n```\n\n## Why Skip Last Hidden Dimension in Decoder?\n\n- Last encoder layer (18) outputs mean and logvar\n- After sampling, latent dimension is halved (9)\n- Decoder must mirror encoder structure without the final encoder layer\n- Creates symmetric architecture for better reconstruction\n\n## Key Implementation Points\n\n1. Encoder outputs twice the latent dimension (for mean and logvar)\n2. Decoder starts from sampled latent space (z_size)\n3. Architecture should be symmetric (except for latent space)\n4. No activation on final layers of both encoder and decoder\n5. Optional sigmoid at decoder output"
         },
         {
-            "title": "Understanding CSS Grid",
-            "date": "April 2, 2024",
-            "category": "CSS",
-            "content": "CSS Grid makes layout much easier..."
+            "title": "Understanding VAE's Reparameterization Trick",
+            "date": "Dec 11, 2024",
+            "category": "Deep Learning",
+            "content": "# Understanding VAE's Reparameterization Trick\n\n## 1. Purpose\nThe reparameterization trick in VAEs allows for backpropagation through a random sampling process, making the sampling process differentiable and enabling end-to-end training.\n\n## 2. Implementation\n```python\ndef reparameterize(self, mean, logvar, n_samples_per_z=1):\n    std = torch.exp(0.5 * logvar)  # Convert logvar to standard deviation\n    eps = torch.randn_like(std)     # Sample from standard normal N(0,1)\n    z = mean + eps * std            # Transform to desired distribution\n    return z\n```\n\n## 3. Key Components\n\n### A. Log Variance (logvar)\n- Used instead of variance (σ²) for several reasons:\n  - **Numerical Stability**: Handles very small/large variances better\n  - **Optimization Benefits**: Better gradient behavior\n  - **Unconstrained Optimization**: Can be any real number (-∞ to +∞)\n  - **Clean KL Divergence**: Simpler mathematical formulation\n\n### B. Converting logvar to Standard Deviation\n```\nGiven: logvar = log(σ²)\nTo get σ (standard deviation):\n1. logvar = log(σ²)\n2. exp(logvar) = σ²\n3. σ = √(exp(logvar)) = exp(logvar/2)\n```\n\n### C. Random Sampling (torch.randn_like)\n```python\neps = torch.randn_like(std)\n```\n\n- Generates random samples from N(0,1)\n- Matches input tensor's shape\n- Properties:\n  - Mean ≈ 0\n  - Standard deviation ≈ 1\n  - Different random samples each forward pass\n\n## 4. Mathematical Process\n1. Start with encoded mean and logvar\n2. Convert logvar to standard deviation\n3. Sample random noise from N(0,1)\n4. Transform noise to desired distribution: z = μ + σ * ε\n\n## 5. Example\n```python\n# Sampling from N(1, 4) distribution\nmean = torch.ones(3)     # [1, 1, 1]\nlogvar = torch.log(torch.tensor([4.0])).expand(3)\nstd = torch.exp(0.5 * logvar)  # = 2\neps = torch.randn_like(std)    # ~ N(0,1)\nz = mean + eps * std           # ~ N(1,4)\n```\n\n## 6. Benefits\n- Enables backpropagation\n- Maintains differentiability\n- Allows learning meaningful latent representations\n- Numerically stable\n- Computationally efficient"
         }
     ]
 }
