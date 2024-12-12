@@ -1,12 +1,6 @@
 {
     "posts": [
         {
-            "title": "h",
-            "date": "Dec 11, 2024",
-            "category": "h",
-            "content": "h"
-        },
-        {
             "title": "VAE Architecture Implementation Summary",
             "date": "Dec 11, 2024",
             "category": "Deep Learning",
