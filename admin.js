@@ -16,6 +16,7 @@ document.getElementById('postForm').addEventListener('submit', async (e) => {
     };
 
     try {
+        console.log(API_URL);
         const response = await fetch(`${API_URL}/api/posts`, {
             method: 'POST',
             headers: {
