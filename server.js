@@ -6,7 +6,7 @@ const port = process.env.PORT || 3000;
 
 // Add CORS for GitHub Pages
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://lemon-tea-ai.github.io/dbc/');
+    res.header('Access-Control-Allow-Origin', 'https://lemon-tea-ai.github.io/');
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     next();
