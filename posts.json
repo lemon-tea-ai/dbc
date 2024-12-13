@@ -1,11 +1,11 @@
 {
     "posts": [
         {
-        "title": "VAE Architecture Implementation Summary",
-        "date": "Dec 12, 2024",
-        "category": "Deep Learning", 
-        "content": "# Summary of VAE Implementation Notebook\n\nThis notebook implements and compares different autoencoder architectures on the MNIST dataset and a 3D torus point cloud. Here's a breakdown of the main components:\n\n## 1. Preliminary Setup\n- Imports required libraries (PyTorch, matplotlib, numpy)\n- Sets up MNIST data loading with batch size 256\n- Implements common utility functions for training and evaluation\n\n## 2. Autoencoder (AE) Implementation\n- Basic autoencoder architecture with configurable hidden dimensions\n- Uses MSE loss for reconstruction\n- Includes visualization functions for original vs reconstructed images\n\n## 3. Variational Autoencoder (VAE) Implementation\n- Implements VAE with reparameterization trick\n- Two loss function implementations:\n  - Stochastic Gradient Variational Bayes (SGVB) Estimator\n  - KL Divergence without Estimation\n- Compares both loss functions empirically\n- Includes training and evaluation on MNIST\n\n## 4. Torus Point Cloud VAE\n- Generates 3D torus point cloud data\n- Implements custom PositionalEncoding3D for 3D coordinates\n- Creates specialized VAE architecture for point cloud data\n- Includes visualization for:\n  - Original point cloud\n  - Reconstructed point cloud\
-        },   
+            "title": "VAE Architecture Implementation Summary",
+            "date": "Dec 12, 2024",
+            "category": "Deep Learning",
+            "content": "# Summary of VAE Implementation Notebook\n\nThis notebook implements and compares different autoencoder architectures on the MNIST dataset and a 3D torus point cloud. Here's a breakdown of the main components:\n\n## 1. Preliminary Setup\n- Imports required libraries (PyTorch, matplotlib, numpy)\n- Sets up MNIST data loading with batch size 256\n- Implements common utility functions for training and evaluation\n\n## 2. Autoencoder (AE) Implementation\n- Basic autoencoder architecture with configurable hidden dimensions\n- Uses MSE loss for reconstruction\n- Includes visualization functions for original vs reconstructed images\n\n## 3. Variational Autoencoder (VAE) Implementation\n- Implements VAE with reparameterization trick\n- Two loss function implementations:\n  - Stochastic Gradient Variational Bayes (SGVB) Estimator\n  - KL Divergence without Estimation\n- Compares both loss functions empirically\n- Includes training and evaluation on MNIST\n\n## 4. Torus Point Cloud VAE\n- Generates 3D torus point cloud data\n- Implements custom PositionalEncoding3D for 3D coordinates\n- Creates specialized VAE architecture for point cloud data\n- Includes visualization for:\n  - Original point cloud\n  - Reconstructed point cloud"
+        },
         {
             "title": "Deep Learning Core Concepts: ResidualBlock, Vanishing Gradient, and BatchNorm",
             "date": "Dec 12, 2024",
