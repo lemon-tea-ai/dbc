@@ -1,6 +1,12 @@
 {
     "posts": [
         {
+        "title": "PixelCNN Architecture Implementation Notes",
+        "date": "Dec 12, 2024",
+        "category": "Deep Learning",
+        "content": "# PixelCNN Implementation Key Concepts\n\n## 1. MaskedConv2d Layer\n- Inherits from nn.Conv2d\n- Implements autoregressive property through masking\n- Two mask types:\n - Type A: Masks current and future pixels\n - Type B: Masks only future pixels\n\n### Masking Implementation\npython\nmask[:, :, height//2, width//2:] = 0 # Mask current and right pixels\nmask[:, :, height//2 + 1:, :] = 0 # Mask all pixels below\n\n\n## 2. Convolution Concepts\n### Shape Calculations\n- Input shape: (batch_size, channels, height, width)\n- Output shape = ((Input - Kernel + 2Padding) / Stride) + 1\n- Example: 28x28 input with 7x7 kernel, padding=3:\n python\n ((28 - 7 + 2*3) / 1) + 1 = 28 # Maintains spatial dimensions\n \n\n### Parameters\n- Kernel size: Size of convolution filter (e.g., 7x7)\n- Stride: Pixel step size (usually 1 for PixelCNN)\n- Padding: Border padding to maintain dimensions\n\n## 3. Network Architecture\n### Layer Organization\npython\nnn.ModuleList([\n # Input layer (Type A mask)\n MaskedConv2d(mask_type='A', ...),\n nn.ReLU(),\n \n # Middle layers (Type B mask)\n *[nn.Sequential(\n MaskedConv2d(mask_type='B', ...),\n nn.ReLU()\n ) for _ in range(7)],\n \n # Output layer\n MaskedConv2d(mask_type='B', ...),\n nn.Sigmoid()\n])\n\n\n## 4. Python Implementation Tips\n### List Unpacking\n- * operator unpacks list elements\n- Used for integrating multiple layers:\n python\n [layer1, *middle_layers, layer_final]\n \n\n### Sequential Grouping\n- nn.Sequential groups related operations\n- Benefits:\n - Cleaner organization\n - Logical pairing of Conv+ReLU\n - More efficient forward pass\n\n## 5. Channel Dimensions\n- Input: 1 channel (grayscale)\n- Hidden layers: 64 channels (feature maps)\n- Output: 1 channel (pixel predictions)\n- Each channel learns different image features\n\n## 6. Training Process\n- Binary cross-entropy loss\n- Autoregressive generation\n- Each pixel predicted based on previous pixels\n- Maintains spatial dimensions throughout network"
+        },
+        {
             "title": "VAE Architecture Implementation Summary",
             "date": "Dec 12, 2024",
             "category": "Deep Learning",
