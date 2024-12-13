@@ -1,6 +1,19 @@
 {
     "posts": [
         {
+        "title": "VAE Architecture Implementation Summary",
+        "date": "Dec 12, 2024",
+        "category": "Deep Learning", 
+        "content": "# Summary of VAE Implementation Notebook\n\nThis notebook implements and compares different autoencoder architectures on the MNIST dataset and a 3D torus point cloud. Here's a breakdown of the main components:\n\n## 1. Preliminary Setup\n- Imports required libraries (PyTorch, matplotlib, numpy)\n- Sets up MNIST data loading with batch size 256\n- Implements common utility functions for training and evaluation\n\n## 2. Autoencoder (AE) Implementation\n- Basic autoencoder architecture with configurable hidden dimensions\n- Uses MSE loss for reconstruction\n- Includes visualization functions for original vs reconstructed images\n\n## 3. Variational Autoencoder (VAE) Implementation\n- Implements VAE with reparameterization trick\n- Two loss function implementations:\n  - Stochastic Gradient Variational Bayes (SGVB) Estimator\n  - KL Divergence without Estimation\n- Compares both loss functions empirically\n- Includes training and evaluation on MNIST\n\n## 4. Torus Point Cloud VAE\n- Generates 3D torus point cloud data\n- Implements custom PositionalEncoding3D for 3D coordinates\n- Creates specialized VAE architecture for point cloud data\n- Includes visualization for:\n  - Original point cloud\n  - Reconstructed point cloud\
+        },   
+        {
+            "title": "Deep Learning Core Concepts: ResidualBlock, Vanishing Gradient, and BatchNorm",
+            "date": "Dec 12, 2024",
+            "category": "Deep Learning",
+            "content": "# Deep Learning Concepts Q&A\n\n## ResidualBlock\n**Q: What is ResidualBlock?**\n\nA ResidualBlock is a neural network component that helps solve the degradation problem in deep networks through skip connections.\n\nKey points:\n- Uses skip connections (`x + block(x)`)\n- Helps prevent vanishing gradients\n- Makes it easier to preserve important features\n- Improves training stability\n\n```python\nclass ResidualBlock(torch.nn.Module):\n    def __init__(self, dim):\n        super().__init__()\n        self.block = torch.nn.Sequential(\n            torch.nn.Linear(dim, dim),\n            torch.nn.ReLU(),\n            torch.nn.Linear(dim, dim)\n        )\n    \n    def forward(self, x):\n        return x + self.block(x)\n```\n\n## Vanishing Gradient\n**Q: What is vanishing gradient?**\n\nVanishing gradient is when gradients become extremely small during backpropagation in deep networks.\n\nSolutions include:\n- Using ReLU activation instead of Sigmoid/Tanh\n- Adding residual connections\n- Implementing batch normalization\n- Proper weight initialization\n\n## Batch Normalization\n**Q: What is batch norm?**\n\nBatchNorm normalizes intermediate layer outputs during training to improve stability and speed.\n\nBenefits:\n- Speeds up training\n- Provides regularization\n- Makes networks more robust\n- Allows higher learning rates\n\n```python\nclass SimpleNetwork(torch.nn.Module):\n    def __init__(self, input_dim):\n        super().__init__()\n        self.bn_network = torch.nn.Sequential(\n            torch.nn.Linear(input_dim, 100),\n            torch.nn.BatchNorm1d(100),\n            torch.nn.ReLU()\n        )\n```\n\n## Multiple ResidualBlocks\n**Q: Why use two residual blocks?**\n\nUsing multiple ResidualBlocks provides:\n- Increased model capacity\n- Hierarchical feature learning\n- Better transformation capabilities\n- Maintained gradient flow through skip connections\n\nThe number of blocks is a trade-off between model complexity and performance.",
+            "tags": ["deep learning", "neural networks", "ResidualBlock", "BatchNorm", "vanishing gradient"]
+        },
+        {
             "title": "VAE Architecture Implementation Summary",
             "date": "Dec 11, 2024",
             "category": "Deep Learning",

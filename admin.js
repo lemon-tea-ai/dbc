@@ -1,5 +1,3 @@
-const API_URL = 'https://dbc-4k9b.onrender.com';
-
 document.getElementById('postForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     
@@ -17,7 +15,7 @@ document.getElementById('postForm').addEventListener('submit', async (e) => {
 
     try {
         console.log(API_URL);
-        const response = await fetch(`${API_URL}/api/posts`, {
+        const response = await fetch(`/api/posts`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
