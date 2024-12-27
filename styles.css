@@ -132,4 +132,21 @@ footer {
     .blog-post {
         padding: 15px;
     }
+}
+
+.tabs {
+    margin-bottom: 20px;
+}
+
+.tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    background: #f0f0f0;
+    margin-right: 5px;
+}
+
+.tab.active {
+    background: #007bff;
+    color: white;
 } 
